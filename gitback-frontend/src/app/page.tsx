@@ -24,13 +24,12 @@ export default function Home() {
 
         <div className="settingsContainer flex flex-col items-center gap-4">
 
-          {/* Change Username Button */}
           <button 
             id="changeUsername" 
             className="changeUsername"
             onClick={openChangeModal}
           >
-            Change Username
+            Change Email
           </button>
 
 
@@ -38,7 +37,7 @@ export default function Home() {
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
               <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
                 <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-semibold text-gray-600">Change Username</h2>
+                <h2 className="text-lg font-semibold text-gray-600">Change Email</h2>
             <button 
           className="text-gray-500 hover:text-gray-700"
           onClick={closeChangeModal}
@@ -49,12 +48,12 @@ export default function Home() {
 
       <div className="flex flex-col gap-4">
         <label htmlFor="username" className="text-sm text-gray-600">
-          Your new username:
+          Your new Email:
         </label>
         <input
           id="username"
           type="text"
-          placeholder="Enter new username"
+          placeholder="Enter new Email"
           className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
         />
 
