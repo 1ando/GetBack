@@ -1,7 +1,4 @@
 const express = require('express');
-const initializeApp = require("firebase/app");
-const getAnalytics = require("firebase/analytics");
-const firebaseAuthController = require('./controllers/firebase-auth-controller');
 
 const app = express();
 const router = require('./routes');

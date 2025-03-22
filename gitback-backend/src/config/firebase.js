@@ -20,7 +20,12 @@ const firebaseConfig = {
     appId: process.env.FIREBASE_APP_ID
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+});
+
+const db = admin.firestore();
 
 module.exports = {
     getAuth,
@@ -29,9 +34,6 @@ module.exports = {
     signOut,
     sendEmailVerification,
     sendPasswordResetEmail,
-    admin
+    admin,
+    db
 };
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-});
