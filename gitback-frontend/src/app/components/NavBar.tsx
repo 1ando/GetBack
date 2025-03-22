@@ -31,7 +31,7 @@ const NavBar = () => {
         <nav className="flex 
         flex-col gap-4">
             <Link href='/'
-            className='mb-12 cursur-pointer items-center gap-2'>
+            className='mb-12 cursur-pointer items-center gap-10'>
               {/* Insert Logo */}
                 <h1 className = "logo">Get Back</h1>
             </Link>
