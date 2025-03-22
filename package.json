@@ -1,8 +1,19 @@
 {
-  "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^6.4.8",
-    "@mui/material": "^6.4.8"
-  }
+  "name": "getback",
+  "version": "1.0.0",
+  "description": "A Web application designed to make payments between peers (with a speciality for groups) easier.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1ando/GetBack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1ando/GetBack/issues"
+  },
+  "homepage": "https://github.com/1ando/GetBack#readme"
 }
