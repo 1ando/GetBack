@@ -10,8 +10,8 @@ export const navbarLinks = [
     },
     {
       imgURL: "/icons/dollar-circle.svg",
-      route: "/my-banks",
-      label: "My Banks",
+      route: "/group",
+      label: "Group",
     },
     {
       imgURL: "/icons/transaction.svg",
@@ -20,8 +20,8 @@ export const navbarLinks = [
     },
     {
       imgURL: "/icons/money-send.svg",
-      route: "/payment-transfer",
-      label: "Transfer Funds",
+      route: "/settings",
+      label: "Settings",
     },
   ];
 
