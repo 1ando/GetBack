@@ -1,4 +1,5 @@
 const verifyToken = require("../middleware/index");
+const {db} = require("../config/firebase");
 
 class DatabaseController {
     async setUser (req, res) {
@@ -38,6 +39,17 @@ class DatabaseController {
             console.log("Found document with Data: ", doc.data());
             res.status(200).json(doc.data());
         }
+    }
+
+    async sendFriendRequest (req, res) {
+        const sender = req.body.sender;
+        const receiver = req.body.receiver;
+        const docRef = await db.collection('users').doc(email);
+        await docRef.set({
+            receiver: receiver,
+            sender: sender
+        });
+        console.log("Document written with ID:", docRef.id);
     }
 }
 

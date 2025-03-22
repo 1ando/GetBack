@@ -16,4 +16,6 @@ router.post('/api/reset-password', firebaseAuthController.resetPassword);
 router.post('/api/setUser', firestoreDatabaseController.setUser);
 router.get('/api/getUser', firestoreDatabaseController.getUser);
 
+router.post('/api/sendFriendRequest', firestoreDatabaseController.sendFriendRequest)
+
 module.exports = router;
