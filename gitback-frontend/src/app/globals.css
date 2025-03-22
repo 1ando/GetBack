@@ -99,3 +99,8 @@ body {
   place-items: center;
 
 }
+
+.modal-content{
+  color: black;
+  font-size: 10px;
+}
