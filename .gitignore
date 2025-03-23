@@ -1,2 +1,3 @@
 gitback-backend/firebaseServiceAccount.json
 gitback-backend/.env
+node_modules
