@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { CheckCircle } from '@mui/icons-material';
+import NavBar from '../components/NavBar';
 
 const incomingItems = ['Incoming A', 'Incoming B', 'Incoming C', 'Incoming D', 'Incoming A', 'Incoming B', 'Incoming C', 'Incoming D'];
 const outgoingItems = ['Outgoing X', 'Outgoing Y', 'Outgoing Z'];
@@ -24,13 +25,16 @@ export default function GroupPage() {
   });
 
   return (
+    
+    
     <Box sx={{ minHeight: '100vh', bgcolor: '#fffaf0', display: 'flex', p: 3, color: '#000' }}>
       {/* Main Content */}
+      <NavBar/>
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <Typography sx={{ fontSize: '2.5rem', fontWeight: 600, mt: 2 }}>
           NO FISH
         </Typography>
-
+        
         {/* Sections */}
         <Box sx={{ width: '100%', maxWidth: '768px', display: 'flex', flexDirection: 'column', gap: 5 }}>
           {/* Incoming Carousel */}

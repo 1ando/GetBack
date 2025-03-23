@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import NavBar from '../components/NavBar';
 import {
   Box,
   Button,
@@ -31,7 +32,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <Box
+    <><div><NavBar /></div><Box
       sx={{
         bgcolor: '#d3d3d3',
         p: 4,
@@ -79,7 +80,7 @@ export default function ProfilePage() {
             onClick={() => {
               setEditName(displayName);
               setEditModalOpen(true);
-            }}
+            } }
             sx={{ px: 1, py: 0.5, fontSize: '0.75rem', minWidth: 'unset', textTransform: 'uppercase' }}
           >
             edit
@@ -112,8 +113,7 @@ export default function ProfilePage() {
           <TextField
             fullWidth
             value={editName}
-            onChange={(e) => setEditName(e.target.value)}
-          />
+            onChange={(e) => setEditName(e.target.value)} />
           <Button
             variant="contained"
             onClick={handleSaveName}
@@ -151,8 +151,7 @@ export default function ProfilePage() {
               placeholder="Add a friend"
               value={newFriend}
               onChange={(e) => setNewFriend(e.target.value)}
-              size="small"
-            />
+              size="small" />
             <Button
               variant="contained"
               onClick={handleAddFriend}
@@ -168,6 +167,6 @@ export default function ProfilePage() {
           ))}
         </Box>
       </Modal>
-    </Box>
+    </Box></>
   );
 }
