@@ -12,7 +12,7 @@
 
 # testing
 /coverage
-gitback-frontend\.env
+.env
 # next.js
 /.next/
 /out/
