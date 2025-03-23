@@ -3,27 +3,24 @@
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import { Group, Person, Settings } from '@mui/icons-material';
-// Add at the top with other hooks
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
+import NavBar from '@/app/components/NavBar';
 
 export default function GroupPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [formComplete, setFormComplete] = useState(false);
-const [formData, setFormData] = useState({
-  person: '',
-  reason: '',
-  amount: '',
-  timeLimit: '',
-});
+  const [formComplete, setFormComplete] = useState(false);
+  const [formData, setFormData] = useState({
+    person: '',
+    reason: '',
+    amount: '',
+    timeLimit: '',
+  });
 
   return (
     <div className="min-h-screen bg-[#fffaf0] flex p-6">
       {/* Left Sidebar */}
-      <div className="w-20 bg-[#8EE3E2] rounded-2xl py-6 flex flex-col items-center justify-center gap-6">
-        <Group />
-        <Person />
-        <Settings />
+      <div className="w-[250px]">
+        <NavBar />
       </div>
 
       {/* Main Content */}
@@ -94,111 +91,110 @@ const [formData, setFormData] = useState({
 
         {/* Modal */}
         {isModalOpen && (
-  <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-    <div className="bg-[#CBF3F0] p-8 rounded-2xl shadow-lg text-center max-w-sm w-full">
-      {!formComplete ? (
-        <>
-          <h2 className="text-xl font-bold mb-4">GET BACK REQUEST</h2>
+          <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+            <div className="bg-[#CBF3F0] p-8 rounded-2xl shadow-lg text-center max-w-sm w-full">
+              {!formComplete ? (
+                <>
+                  <h2 className="text-xl font-bold mb-4">GET BACK REQUEST</h2>
 
-          <div className="flex flex-col text-left gap-4 text-black text-sm mb-6">
-            <div>
-              <label className="font-semibold block mb-1">Which person do you need to get back?</label>
-              <input
-                className="w-full px-3 py-2 rounded bg-white"
-                value={formData.person}
-                onChange={(e) => setFormData({ ...formData, person: e.target.value })}
-              />
-            </div>
+                  <div className="flex flex-col text-left gap-4 text-black text-sm mb-6">
+                    <div>
+                      <label className="font-semibold block mb-1">Which person do you need to get back?</label>
+                      <input
+                        className="w-full px-3 py-2 rounded bg-white"
+                        value={formData.person}
+                        onChange={(e) => setFormData({ ...formData, person: e.target.value })}
+                      />
+                    </div>
 
-            <div>
-              <label className="font-semibold block mb-1">Why do you need to get back?</label>
-              <input
-                className="w-full px-3 py-2 rounded bg-white"
-                value={formData.reason}
-                onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
-              />
-            </div>
+                    <div>
+                      <label className="font-semibold block mb-1">Why do you need to get back?</label>
+                      <input
+                        className="w-full px-3 py-2 rounded bg-white"
+                        value={formData.reason}
+                        onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
+                      />
+                    </div>
 
-            <div>
-              <label className="font-semibold block mb-1">How much do you need to get back?</label>
-              <input
-                className="w-full px-3 py-2 rounded bg-white"
-                value={formData.amount}
-                onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-              />
-            </div>
+                    <div>
+                      <label className="font-semibold block mb-1">How much do you need to get back?</label>
+                      <input
+                        className="w-full px-3 py-2 rounded bg-white"
+                        value={formData.amount}
+                        onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                      />
+                    </div>
 
-            <div>
-              <label className="font-semibold block mb-1">How long do they have to get back?</label>
-              <input
-                className="w-full px-3 py-2 rounded bg-white"
-                value={formData.timeLimit}
-                onChange={(e) => setFormData({ ...formData, timeLimit: e.target.value })}
-              />
+                    <div>
+                      <label className="font-semibold block mb-1">How long do they have to get back?</label>
+                      <input
+                        className="w-full px-3 py-2 rounded bg-white"
+                        value={formData.timeLimit}
+                        onChange={(e) => setFormData({ ...formData, timeLimit: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center gap-4">
+                    <Button
+                      variant="contained"
+                      onClick={() => setFormComplete(true)}
+                      sx={{
+                        backgroundColor: '#06d6a0',
+                        color: '#fff',
+                        textTransform: 'none',
+                        borderRadius: '999px',
+                        px: 3,
+                        '&:hover': { backgroundColor: '#05c495' },
+                      }}
+                    >
+                      Confirm
+                    </Button>
+                    <Button
+                      onClick={() => setIsModalOpen(false)}
+                      sx={{
+                        backgroundColor: '#ef476f',
+                        color: '#fff',
+                        textTransform: 'none',
+                        borderRadius: '999px',
+                        px: 3,
+                        '&:hover': { backgroundColor: '#d7375f' },
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <CheckCircleIcon sx={{ fontSize: 60, color: '#06d6a0' }} />
+
+                  <p className="font-semibold text-black text-lg text-center">
+                    Now sit back, while we make sure you get back!
+                  </p>
+                  <Button
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      setFormComplete(false);
+                      setFormData({ person: '', reason: '', amount: '', timeLimit: '' });
+                    }}
+                    sx={{
+                      textTransform: 'none',
+                      mt: 2,
+                      color: '#000',
+                      '&:hover': { textDecoration: 'underline' },
+                    }}
+                  >
+                    Close
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
-
-          <div className="flex justify-center gap-4">
-            <Button
-              variant="contained"
-              onClick={() => setFormComplete(true)}
-              sx={{
-                backgroundColor: '#06d6a0',
-                color: '#fff',
-                textTransform: 'none',
-                borderRadius: '999px',
-                px: 3,
-                '&:hover': { backgroundColor: '#05c495' },
-              }}
-            >
-              Confirm
-            </Button>
-            <Button
-              onClick={() => setIsModalOpen(false)}
-              sx={{
-                backgroundColor: '#ef476f',
-                color: '#fff',
-                textTransform: 'none',
-                borderRadius: '999px',
-                px: 3,
-                '&:hover': { backgroundColor: '#d7375f' },
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
-        </>
-      ) : (
-        <div className="flex flex-col items-center justify-center gap-4">
-          <CheckCircleIcon sx={{ fontSize: 60, color: '#06d6a0' }} />
-
-          <p className="font-semibold text-black text-lg text-center">
-            Now sit back, while we make sure you get back!
-          </p>
-          <Button
-            onClick={() => {
-              setIsModalOpen(false);
-              setFormComplete(false);
-              setFormData({ person: '', reason: '', amount: '', timeLimit: '' });
-            }}
-            sx={{
-              textTransform: 'none',
-              mt: 2,
-              color: '#000',
-              '&:hover': { textDecoration: 'underline' },
-            }}
-          >
-            Close
-          </Button>
-        </div>
-      )}
-    </div>
-  </div>
-)}
-
+        )}
       </div>
 
-      {/*da wall*/}
+      {/* Wall of Shame */}
       <div className="w-48 bg-gray-300 rounded-xl p-4 flex flex-col items-start ml-6">
         <p className="text-xs font-bold text-black mb-4 pl-2">wall of shame</p>
         <div className="flex flex-col justify-between h-full w-full text-black text-sm font-semibold flex-1">
