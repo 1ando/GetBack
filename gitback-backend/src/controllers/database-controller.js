@@ -9,7 +9,11 @@ async function makeFriends(user1, user2) {
     console.log("Document written with ID: ", docRef.id);
 }
 
+
+
+
 class DatabaseController {
+    
     async setUser (req, res) {
         const email = req.body.email;
         const pfpLink = req.body.pfpLink;
@@ -177,6 +181,100 @@ class DatabaseController {
         console.log(groups);
         return res.status(200).json(groups);
     }
-}
 
+
+    async makeTransactionRequest(req, res) {
+        const { sender_email, target_email, amount, description, time, group_id } = req.body;
+    
+        try {
+            const collectionRef = db.collection('transaction_request');  // No need for await here
+            const docRef = await collectionRef.add({
+                amount: amount,
+                description: description,
+                id: group_id,
+                sender: sender_email,
+                receiver: target_email,
+                timeReceived: time
+            });
+    
+            console.log("Transaction request created with ID:", docRef.id);
+            res.status(200).json({ result: "SUCCESS" });
+        } catch (e) {
+            console.error("Error adding transaction request document:", e);
+            res.status(500).json({ error: "Failed to add transaction request" });
+        }
+    }
+    
+
+    async makeTransactionLog(req, res) {
+        const { sender_email, target_email, amount, description, time, group_id } = req.body;
+
+        try {
+            const collectionRef = await db.collection('transaction');
+            const docRef = await collectionRef.add({
+                amount: amount,
+                description: description,
+                id: group_id,
+                sender: sender_email,
+                receiver: target_email,
+                timeReceived: time
+            });
+
+            console.log("Transaction log created with ID:", docRef.id);
+            res.status(200).json({ result: "SUCCESS" });
+        } catch (e) {
+            console.error("Error adding transaction log document:", e);
+            res.status(500).json({ error: "Failed to add transaction log" });
+        }
+    }
+
+    async getTransactionRequests(req, res) {
+        const { user_email } = req.query;
+    
+        try {
+            const transactionRequests = [];
+            const collectionRef = db.collection('transaction_request');
+            const snapshot = await collectionRef.get();
+    
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                if (data.receiver === user_email || data.sender === user_email) {  // Includes both sent and received transactions
+                    transactionRequests.push(data);
+                }
+            });
+    
+            console.log("Transaction requests found:", transactionRequests);
+            return res.status(200).json(transactionRequests);
+    
+        } catch (e) {
+            console.error("Error retrieving transaction requests:", e);
+            return res.status(500).json({ error: "Failed to retrieve transaction requests" });
+        }
+    }
+    async getTransactionLog(req, res) {
+        const { user_email } = req.query;
+    
+        try {
+            const transactionLogs = [];
+            const collectionRef = db.collection('transaction');
+            const snapshot = await collectionRef.get();
+    
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                if (data.receiver === user_email || data.sender === user_email) {  // Includes both sent and received transactions
+                    transactionLogs.push(data);
+                }
+            });
+    
+            console.log("Transaction Log Documents found! :", transactionLogs);
+            return res.status(200).json(transactionLogs);
+    
+        } catch (e) {
+            console.error("Error retrieving transaction logs:", e);
+            return res.status(500).json({ error: "Failed to retrieve transaction logs" });
+        }
+    }
+    
+    
+}
 module.exports = new DatabaseController();

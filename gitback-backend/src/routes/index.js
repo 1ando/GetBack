@@ -21,8 +21,15 @@ router.get('/api/get-friends', firestoreDatabaseController.getFriends)
 router.get('/api/get-friend-requests', firestoreDatabaseController.getFriendRequests)
 router.post('/api/accept-friend', firestoreDatabaseController.acceptFriend)
 
+router.post('/api/make-transaction-request', firestoreDatabaseController.makeTransactionRequest)
+router.post('/api/make-transaction-log', firestoreDatabaseController.makeTransactionLog)
+router.get('/api/get-transaction-requests',firestoreDatabaseController.getTransactionRequests)
+router.get('/api/get-transaction-log', firestoreDatabaseController.getTransactionLog)
+
+
 router.post('/api/send-group-request', firestoreDatabaseController.sendGroupRequest)
 router.post('/api/create-group', firestoreDatabaseController.createGroup)
 router.get('/api/get-group-requests', firestoreDatabaseController.getGroupRequests)
+
 
 module.exports = router;
