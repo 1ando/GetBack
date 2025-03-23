@@ -1,212 +1,279 @@
 'use client';
 
 import { useState } from 'react';
-import Button from '@mui/material/Button';
-import { Group, Person, Settings } from '@mui/icons-material';
-// Add at the top with other hooks
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import {
+  Box,
+  Button,
+  Modal,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { CheckCircle } from '@mui/icons-material';
+import NavBar from '../components/NavBar';
 
+const incomingItems = ['Incoming A', 'Incoming B', 'Incoming C', 'Incoming D', 'Incoming A', 'Incoming B', 'Incoming C', 'Incoming D'];
+const outgoingItems = ['Outgoing X', 'Outgoing Y', 'Outgoing Z'];
 
 export default function GroupPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [formComplete, setFormComplete] = useState(false);
-const [formData, setFormData] = useState({
-  person: '',
-  reason: '',
-  amount: '',
-  timeLimit: '',
-});
+  const [formComplete, setFormComplete] = useState(false);
+  const [formData, setFormData] = useState({
+    person: '',
+    reason: '',
+    amount: '',
+    timeLimit: '',
+  });
 
   return (
-    <div className="min-h-screen bg-[#fffaf0] flex p-6">
-      {/* Left Sidebar */}
-      <div className="w-20 bg-[#8EE3E2] rounded-2xl py-6 flex flex-col items-center justify-center gap-6">
-        <Group />
-        <Person />
-        <Settings />
-      </div>
-
+    
+    
+    <Box sx={{ minHeight: '100vh', bgcolor: '#fffaf0', display: 'flex', p: 3, color: '#000' }}>
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center gap-8 relative">
-        {/* Header */}
-        <div className="bg-[#CBF3F0] text-black text-5xl font-semibold text-center py-6 px-10 rounded-[2rem] w-fit mt-2">
+      <NavBar/>
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+        <Typography sx={{ fontSize: '2.5rem', fontWeight: 600, mt: 2 }}>
           NO FISH
-        </div>
-
+        </Typography>
+        
         {/* Sections */}
-        <div className="w-full max-w-4xl flex flex-col gap-10">
-          {/* Incoming */}
-          <div>
-            <h2 className="text-lg font-bold text-black mb-3">Incoming</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {Array(3).fill(0).map((_, i) => (
-                <div key={i} className="h-24 rounded-md" style={{ backgroundColor: '#06d6a0' }} />
+        <Box sx={{ width: '100%', maxWidth: '768px', display: 'flex', flexDirection: 'column', gap: 5 }}>
+          {/* Incoming Carousel */}
+          <Box>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              Incoming
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2, overflowX: 'auto', pb: 1 }}>
+              {incomingItems.map((item, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    minWidth: '100px',
+                    height: '6rem',
+                    bgcolor: '#f2f2f2',
+                    borderRadius: 2,
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 500,
+                  }}
+                >
+                  {item}
+                </Box>
               ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          {/* Outgoing */}
-          <div>
-            <h2 className="text-lg font-bold text-black mb-3">Outgoing</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {Array(3).fill(0).map((_, i) => (
-                <div key={i} className="h-24 rounded-md" style={{ backgroundColor: '#ef476f' }} />
+          {/* Outgoing Carousel */}
+          <Box>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              Outgoing
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2, overflowX: 'auto', pb: 1 }}>
+              {outgoingItems.map((item, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    minWidth: '100px',
+                    height: '6rem',
+                    bgcolor: '#f2f2f2',
+                    borderRadius: 2,
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 500,
+                  }}
+                >
+                  {item}
+                </Box>
               ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
 
           {/* Transactions */}
-          <div>
-            <h2 className="text-lg font-bold text-black mb-3">Transactions:</h2>
-            <div className="flex flex-col gap-3">
-              {Array(2).fill(0).map((_, i) => (
-                <div key={i} className="bg-gray-300 h-12 rounded-md" />
+          <Box>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              Transactions
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {[...Array(2)].map((_, i) => (
+                <Box key={i} sx={{ height: '3rem', borderRadius: 1, bgcolor: '#d3d6dd' }} />
               ))}
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Box>
 
         {/* GET BACK Button */}
-        <Button
-          variant="contained"
-          onClick={() => setIsModalOpen(true)}
-          sx={{
-            backgroundColor: '#CBF3F0',
-            color: '#000',
-            fontWeight: 600,
-            fontSize: '0.875rem',
-            borderRadius: '1rem',
-            px: 4,
-            py: 1.5,
-            textTransform: 'none',
-            position: 'absolute',
-            bottom: '2.5rem',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-            '&:hover': {
-              backgroundColor: '#b5eae7',
-            },
-          }}
-        >
-          GET BACK
-        </Button>
-
-        {/* Modal */}
-        {isModalOpen && (
-  <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-    <div className="bg-[#CBF3F0] p-8 rounded-2xl shadow-lg text-center max-w-sm w-full">
-      {!formComplete ? (
-        <>
-          <h2 className="text-xl font-bold mb-4">GET BACK REQUEST</h2>
-
-          <div className="flex flex-col text-left gap-4 text-black text-sm mb-6">
-            <div>
-              <label className="font-semibold block mb-1">Which person do you need to get back?</label>
-              <input
-                className="w-full px-3 py-2 rounded bg-white"
-                value={formData.person}
-                onChange={(e) => setFormData({ ...formData, person: e.target.value })}
-              />
-            </div>
-
-            <div>
-              <label className="font-semibold block mb-1">Why do you need to get back?</label>
-              <input
-                className="w-full px-3 py-2 rounded bg-white"
-                value={formData.reason}
-                onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
-              />
-            </div>
-
-            <div>
-              <label className="font-semibold block mb-1">How much do you need to get back?</label>
-              <input
-                className="w-full px-3 py-2 rounded bg-white"
-                value={formData.amount}
-                onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-              />
-            </div>
-
-            <div>
-              <label className="font-semibold block mb-1">How long do they have to get back?</label>
-              <input
-                className="w-full px-3 py-2 rounded bg-white"
-                value={formData.timeLimit}
-                onChange={(e) => setFormData({ ...formData, timeLimit: e.target.value })}
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-center gap-4">
-            <Button
-              variant="contained"
-              onClick={() => setFormComplete(true)}
-              sx={{
-                backgroundColor: '#06d6a0',
-                color: '#fff',
-                textTransform: 'none',
-                borderRadius: '999px',
-                px: 3,
-                '&:hover': { backgroundColor: '#05c495' },
-              }}
-            >
-              Confirm
-            </Button>
-            <Button
-              onClick={() => setIsModalOpen(false)}
-              sx={{
-                backgroundColor: '#ef476f',
-                color: '#fff',
-                textTransform: 'none',
-                borderRadius: '999px',
-                px: 3,
-                '&:hover': { backgroundColor: '#d7375f' },
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
-        </>
-      ) : (
-        <div className="flex flex-col items-center justify-center gap-4">
-          <CheckCircleIcon sx={{ fontSize: 60, color: '#06d6a0' }} />
-
-          <p className="font-semibold text-black text-lg text-center">
-            Now sit back, while we make sure you get back!
-          </p>
+        <Box sx={{ mt: 6 }}>
           <Button
-            onClick={() => {
-              setIsModalOpen(false);
-              setFormComplete(false);
-              setFormData({ person: '', reason: '', amount: '', timeLimit: '' });
-            }}
+            variant="contained"
+            onClick={() => setIsModalOpen(true)}
             sx={{
-              textTransform: 'none',
-              mt: 2,
+              backgroundColor: '#f2f2f2',
               color: '#000',
-              '&:hover': { textDecoration: 'underline' },
+              fontWeight: 600,
+              fontSize: '0.875rem',
+              borderRadius: '0.5rem',
+              px: 4,
+              py: 1.5,
+              textTransform: 'none',
+              boxShadow: 2,
+              '&:hover': {
+                backgroundColor: '#e2e2e2',
+              },
             }}
           >
-            Close
+            GET BACK
           </Button>
-        </div>
-      )}
-    </div>
-  </div>
-)}
+        </Box>
 
-      </div>
+        {/* Modal */}
+        <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              backgroundColor: '#f5f5f5',
+              p: 4,
+              borderRadius: 3,
+              maxWidth: 400,
+              width: '100%',
+              boxShadow: 24,
+              outline: 'none',
+              color: '#000',
+            }}
+          >
+            {!formComplete ? (
+              <>
+                <Typography variant="h6" fontWeight="bold" mb={3}>
+                  Submit a Get Back Request
+                </Typography>
 
-      {/*da wall*/}
-      <div className="w-48 bg-gray-300 rounded-xl p-4 flex flex-col items-start ml-6">
-        <p className="text-xs font-bold text-black mb-4 pl-2">wall of shame</p>
-        <div className="flex flex-col justify-between h-full w-full text-black text-sm font-semibold flex-1">
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  <TextField
+                    label="Who owes you?"
+                    value={formData.person}
+                    onChange={(e) => setFormData({ ...formData, person: e.target.value })}
+                    fullWidth
+                    size="small"
+                  />
+                  <TextField
+                    label="Why do they owe you?"
+                    value={formData.reason}
+                    onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
+                    fullWidth
+                    size="small"
+                  />
+                  <TextField
+                    label="How much do they owe?"
+                    value={formData.amount}
+                    onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                    fullWidth
+                    size="small"
+                  />
+                  <TextField
+                    label="When do you expect it back?"
+                    value={formData.timeLimit}
+                    onChange={(e) => setFormData({ ...formData, timeLimit: e.target.value })}
+                    fullWidth
+                    size="small"
+                  />
+                </Box>
+
+                <Box mt={4} display="flex" justifyContent="space-between">
+                  <Button
+                    variant="contained"
+                    onClick={() => setFormComplete(true)}
+                    sx={{
+                      backgroundColor: '#CBF3F0',
+                      color: '#000',
+                      borderRadius: '999px',
+                      px: 3,
+                      textTransform: 'none',
+                      '&:hover': { backgroundColor: '#b9e7e4' },
+                    }}
+                  >
+                    Confirm
+                  </Button>
+                  <Button
+                    onClick={() => setIsModalOpen(false)}
+                    sx={{
+                      backgroundColor: '#e0e0e0',
+                      color: '#000',
+                      borderRadius: '999px',
+                      px: 3,
+                      textTransform: 'none',
+                      '&:hover': { backgroundColor: '#d5d5d5' },
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Box>
+              </>
+            ) : (
+              <Box textAlign="center">
+                <CheckCircle sx={{ fontSize: 60, color: '#06d6a0', mb: 2 }} />
+                <Typography fontWeight="bold">
+                  Now sit back, while we make sure you get back!
+                </Typography>
+                <Button
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    setFormComplete(false);
+                    setFormData({ person: '', reason: '', amount: '', timeLimit: '' });
+                  }}
+                  sx={{
+                    mt: 2,
+                    color: '#000',
+                    textTransform: 'none',
+                    '&:hover': { textDecoration: 'underline' },
+                  }}
+                >
+                  Close
+                </Button>
+              </Box>
+            )}
+          </Box>
+        </Modal>
+      </Box>
+
+      {/* Wall of Shame */}
+      <Box
+        sx={{
+          width: '12rem',
+          bgcolor: '#f2f2f2',
+          borderRadius: 2,
+          p: 2,
+          ml: 3,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          color: '#000',
+        }}
+      >
+        <Typography variant="caption" fontWeight="bold" color="black" mb={2} pl={1}>
+          Wall of Shame
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '100%',
+            width: '100%',
+            fontSize: '0.875rem',
+            fontWeight: 600,
+            pl: 1,
+          }}
+        >
           {[...Array(10)].map((_, i) => (
-            <div key={i} className="pl-2">{i + 1}</div>
+            <Box key={i}>{i + 1}</Box>
           ))}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 }
