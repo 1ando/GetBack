@@ -10,7 +10,7 @@ export const navbarLinks = [
     },
     {
       imgURL: "/icons/dollar-circle.svg",
-      route: "/group",
+      route: "/grouppage",
       label: "Group",
     },
     {
