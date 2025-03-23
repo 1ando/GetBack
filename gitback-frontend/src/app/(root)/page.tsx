@@ -46,7 +46,7 @@ const Home = () => {
                         subtext = "Git back your money yayyyy"
                         />
                     </header>
-                    <NavBar user={displayName}/>
+                    <NavBar/>
                 </div>
             }
         </section>

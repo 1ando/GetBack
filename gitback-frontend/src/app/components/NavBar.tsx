@@ -26,7 +26,7 @@ export const navbarLinks = [
     },
 ];
 
-const NavBar = ({ user }: SiderbarProps) => {
+const NavBar = () => {
   const pathname = usePathname();
   
   return (
