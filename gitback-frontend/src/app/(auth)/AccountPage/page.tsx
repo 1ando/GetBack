@@ -4,10 +4,17 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
+import TextField from '@mui/material/TextField';
 
 export default function AccountPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [createEmail, setCreateEmail] = useState('');
+  const [createDisplayName, setCreateDisplayName] = useState('');
+  const [createPassword, setCreatePassword] = useState('');
+
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
 
   return (
     <div className="min-h-screen bg-[#fffaf0] flex flex-col items-center justify-center p-6 relative">
@@ -64,31 +71,27 @@ export default function AccountPage() {
             >
               <CloseIcon />
             </button>
-            <h2 className="text-xl font-bold mb-4">Create Account</h2>
-            <input
-              type="text"
-              placeholder="Email"
-              className="w-full mb-4 px-3 py-2 border rounded"
+            <h2 className="createAccount">Create Account</h2>
+            <TextField
+                id="outlined-basic"
+                placeholder="Email"
+                margin="dense"
+                className="w-full mb-6 px-3 py-2 border rounded m-2"
+                onChange={(value) => setCreateEmail(value.target.value)}
             />
-            <input
-              type="text"
-              placeholder="First Name"
-              className="w-full mb-4 px-3 py-2 border rounded"
+            <TextField
+                id="outlined-basic"
+                placeholder="Display Name"
+                margin="dense"
+                className="w-full mb-6 px-3 py-2 border rounded"
+                onChange={(value) => setCreateDisplayName(value.target.value)}
             />
-            <input
-              type="text"
-              placeholder="Last Name"
-              className="w-full mb-4 px-3 py-2 border rounded"
-            />
-            <input
-              type="text"
-              placeholder="Display Name"
-              className="w-full mb-4 px-3 py-2 border rounded"
-            />
-            <input
-              type="password"
+            <TextField
+              id="outlined-basic"
               placeholder="Password"
+              margin="dense"
               className="w-full mb-6 px-3 py-2 border rounded"
+              onChange={(value) => setCreatePassword(value.target.value)}
             />
             <Button
               fullWidth
@@ -100,9 +103,25 @@ export default function AccountPage() {
                 borderRadius: '999px',
                 '&:hover': { backgroundColor: '#05c495' },
               }}
-              onClick={() => {
-                setShowCreateModal(false);
-                alert('Account created!');
+              onClick={async () => {
+                  const firestore_response = await fetch("http://localhost:5000/api/set-user", {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({pfpLink: "google.com", displayName: createDisplayName, email: createEmail}),
+                  });
+                    console.log(firestore_response);
+                  const auth_response = await fetch("http://localhost:5000/api/register", {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({email: createEmail, password: createPassword}),
+                  });
+                  alert("Please check your email for verification!");
+                  console.log(auth_response);
+                  setShowCreateModal(false);
               }}
             >
               Confirm
@@ -122,16 +141,20 @@ export default function AccountPage() {
               <CloseIcon />
             </button>
             <h2 className="text-xl font-bold mb-4">Log In</h2>
-            <input
-              type="text"
-              placeholder="Email"
-              className="w-full mb-4 px-3 py-2 border rounded"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full mb-6 px-3 py-2 border rounded"
-            />
+              <TextField
+                  id="outlined-basic"
+                  placeholder="Email"
+                  margin="dense"
+                  className="w-full mb-6 px-3 py-2 border rounded m-2"
+                  onChange={(value) => setLoginEmail(value.target.value)}
+              />
+              <TextField
+                  id="outlined-basic"
+                  placeholder="Email"
+                  margin="dense"
+                  className="w-full mb-6 px-3 py-2 border rounded m-2"
+                  onChange={(value) => setLoginPassword(value.target.value)}
+              />
             <Button
               fullWidth
               variant="contained"
@@ -142,9 +165,20 @@ export default function AccountPage() {
                 borderRadius: '999px',
                 '&:hover': { backgroundColor: '#0f7da3' },
               }}
-              onClick={() => {
+              onClick={async () => {
+                  const firestore_response = await fetch("http://localhost:5000/api/login", {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({email: loginEmail, password: loginPassword}),
+
+                  });
+                  const json = await firestore_response.json();
+                  if (json.message == "User signed in successfully") {
+
+                  }
                 setShowLoginModal(false);
-                alert('Logged in!');
               }}
             >
               Log In

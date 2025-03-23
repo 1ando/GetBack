@@ -10,6 +10,7 @@ const admin = require('firebase-admin');
 const serviceAccount = require('../../firebaseServiceAccount.json');
 require("dotenv").config();
 const firebase = require("firebase/app");
+const cors = require("cors");
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,

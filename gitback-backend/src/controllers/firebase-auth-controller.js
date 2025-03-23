@@ -36,7 +36,8 @@ class FirebaseAuthController {
             });
     }
     loginUser(req, res) {
-        const { email, password } = req.body;
+        const email = req.body.email;
+        const password = req.body.password;
         if (!email || !password) {
             return res.status(422).json({
                 email: "Email is required",

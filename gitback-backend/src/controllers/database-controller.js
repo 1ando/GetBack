@@ -12,13 +12,15 @@ async function makeFriends(user1, user2) {
 
 class DatabaseController {
     async setUser (req, res) {
-        const {email, pfpLink, displayName} = req.body;
+        const email = req.body.email;
+        const pfpLink = req.body.pfpLink;
+        const displayName = req.body.displayName;
         // const access_token = req.cookies.access_token;
 
         if (!email || !pfpLink || !displayName) {
             return res.status(422).json({
-                link: "Link to image is required",
-                userId: "User ID is required"
+                pfpLink: "Link to image is required",
+                displayName: "User ID is required"
             });
         }
         // try {
@@ -28,7 +30,7 @@ class DatabaseController {
         //     return res.status(403).json({ error: 'Unauthorized' });
         // }
         try {
-            const docRef = db.collection('users').doc(email);
+            const docRef = db.collection('user').doc(email);
             await docRef.set({
                 email: email,
                 pfpLink: pfpLink,
