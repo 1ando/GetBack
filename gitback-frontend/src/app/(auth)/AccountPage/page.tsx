@@ -5,6 +5,9 @@ import Image from 'next/image';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
+import { useRouter } from 'next/navigation'
+
+import { setCookie } from "../../actions";
 
 export default function AccountPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -15,6 +18,8 @@ export default function AccountPage() {
 
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+
+  const router = useRouter();
 
   return (
     <div className="min-h-screen bg-[#fffaf0] flex flex-col items-center justify-center p-6 relative">
@@ -150,7 +155,7 @@ export default function AccountPage() {
               />
               <TextField
                   id="outlined-basic"
-                  placeholder="Email"
+                  placeholder="Password"
                   margin="dense"
                   className="w-full mb-6 px-3 py-2 border rounded m-2"
                   onChange={(value) => setLoginPassword(value.target.value)}
@@ -175,8 +180,9 @@ export default function AccountPage() {
 
                   });
                   const json = await firestore_response.json();
-                  if (json.message == "User signed in successfully") {
-
+                  if (json.message == "User logged in successfully") {
+                    await setCookie("email", loginEmail);
+                    router.push('/')
                   }
                 setShowLoginModal(false);
               }}

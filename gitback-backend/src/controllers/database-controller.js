@@ -1,4 +1,3 @@
-const verifyToken = require("../middleware/index");
 const {db} = require("../config/firebase");
 
 async function makeFriends(user1, user2) {
@@ -45,12 +44,13 @@ class DatabaseController {
 
     async getUser (req, res){
         const email = req.query.email;
-        const docRef = await db.collection('users').doc(email);
+        const docRef = await db.collection('user').doc(email);
         const doc = await docRef.get();
         if (doc.exists) {
             console.log("Found document with Data: ", doc.data());
             return res.status(200).json(doc.data());
         }
+        else return res.status(401).json(doc.data())
     }
 
     async sendFriendRequest (req, res) {
@@ -76,7 +76,7 @@ class DatabaseController {
         return res.status(200).json({result: "SUCCESS"});
     }
 
-    async acceptFriend (req, res) {
+    async acceptFriend (req) {
         const friend1 = req.body.friend1;
         const friend2 = req.body.friend2;
         // const access_token = req.cookies.access_token;

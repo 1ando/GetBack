@@ -1,9 +1,12 @@
 'use client'
 import { useState } from 'react';
 import React from "react";
-import NavBar from '@/app/components/NavBar';
+import Button from '@mui/material/Button';
+import {deleteCookie} from '../../actions';
+import { useRouter } from 'next/navigation'
 
 export default function Settings() {
+  const router = useRouter();
   const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -80,14 +83,12 @@ export default function Settings() {
 
 
         
-          <div className="logOut">
-            <a 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              Log Out
-            </a>
-          </div>
+          <Button className="logOut" onClick={async () => {
+            await deleteCookie("email")
+            router.push('/AccountPage')
+          }}>
+            Log Out
+          </Button>
 
        
           <button 
