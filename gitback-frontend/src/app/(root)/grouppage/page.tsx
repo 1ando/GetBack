@@ -1,5 +1,4 @@
-'use client';
-
+'use client'
 import { useState } from 'react';
 import {
   Box,
@@ -9,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { CheckCircle } from '@mui/icons-material';
-import NavBar from '../components/NavBar';
+import NavBar from '@/app/components/NavBar';
 
 const incomingItems = ['Incoming A', 'Incoming B', 'Incoming C', 'Incoming D', 'Incoming A', 'Incoming B', 'Incoming C', 'Incoming D'];
 const outgoingItems = ['Outgoing X', 'Outgoing Y', 'Outgoing Z'];
@@ -25,9 +24,7 @@ export default function GroupPage() {
   });
 
   return (
-    
-    
-    <Box sx={{ minHeight: '100vh', bgcolor: '#fffaf0', display: 'flex', p: 3, color: '#000' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#fffaf0', display: 'flex', margin: 0, padding: 0, color: '#000' }}>
       {/* Main Content */}
       <NavBar/>
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
